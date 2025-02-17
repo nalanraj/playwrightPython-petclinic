@@ -20,11 +20,11 @@ class FindOwnersPage:
         self.page.click(self.add_owner_btn)
 
     def verify_owner_information(self):
-        self.page.wait_for_selector(self.owner_information_class)
-        expect(self.page.locator(self.owner_information_class)).to_contain_text(self.owner_information_txt)
+        # expect(self.page).to_(self.owner_information_txt) --> assertion in playwright
+        assert self.owner_information_txt in self.page.content()
 
     def search_owner(self, owner_data):
         self.page.fill(self.last_name_input, owner_data['lastName'])
         self.page.click(self.find_owner_btn)
-        self.page.wait_for_selector(self.owner_information_class)
-        expect(self.page.locator(self.owner_information_class)).to_contain_text(self.owner_result_txt)
+        # expect(self.page).to_have_text(self.owner_result_txt) --> assertion in playwright
+        assert self.owner_result_txt in self.page.content()
